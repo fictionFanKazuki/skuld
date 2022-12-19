@@ -83,8 +83,8 @@
 [ext_resource path="res://characters/stickman/sprites/nunchuk_light1.png" type="Texture" id=81]
 [ext_resource path="res://characters/stickman/sprites/nunchuk_light3.png" type="Texture" id=82]
 [ext_resource path="res://characters/stickman/sprites/stickman59.png" type="Texture" id=83]
-[ext_resource path="res://characters/skuld/states/whack.gd" type="Script" id=84]
-[ext_resource path="res://icon2.png" type="Texture" id=85]
+[ext_resource path="res://characters/states/Idle.gd" type="Script" id=84]
+[ext_resource path="res://mechanics/Hitbox.gd" type="Script" id=85]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -324,20 +324,25 @@ anim_length = 32
 sprite_anim_length = 4
 ticks_per_frame = 8
 
-[node name="not a copied move i swear" type="Node2D" parent="StateMachine" index="41"]
+[node name="ClockSex" type="Node2D" parent="StateMachine" index="41"]
 script = ExtResource( 84 )
-apply_forces = true
-apply_fric = true
-apply_grav = true
-sprite_animation = "Wait"
-anim_length = 4
-title = "just fucking work"
-button_texture = ExtResource( 85 )
-self_interruptable = false
-interrupt_from_string = "Aerial
-Grounded
-AerialSpecial
+anim_length = 20
+title = "Bash"
+type = 1
+interrupt_from_string = "Grounded
+GroundedAttack"
+interrupt_into_string = "Grounded"
+hit_cancel_into_string = "GroundedAttack
 GroundedSpecial
-"
-interrupt_into_string = "Aerial
-Grounded"
+GroundedSuper"
+
+[node name="Hitbox" type="Node2D" parent="StateMachine/ClockSex" index="0"]
+z_index = 1000
+script = ExtResource( 85 )
+x = 36
+y = -17
+width = 24
+height = 14
+damage = 70
+hit_height = 0
+start_tick = 4
