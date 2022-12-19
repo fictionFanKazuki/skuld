@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=2]
+[gd_scene load_steps=91 format=2]
 
 [ext_resource path="res://characters/BaseChar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/BaseChar.gdshader" type="Shader" id=2]
@@ -85,6 +85,8 @@
 [ext_resource path="res://characters/stickman/sprites/stickman59.png" type="Texture" id=83]
 [ext_resource path="res://characters/states/Idle.gd" type="Script" id=84]
 [ext_resource path="res://mechanics/Hitbox.gd" type="Script" id=85]
+[ext_resource path="res://characters/skuld/states/teleport.gd" type="Script" id=86]
+[ext_resource path="res://characters/skuld/ActionUIData/TeleportActionUIData.tscn" type="PackedScene" id=87]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -346,3 +348,19 @@ height = 14
 damage = 70
 hit_height = 0
 start_tick = 4
+
+[node name="Teleport" type="Node2D" parent="StateMachine" index="42"]
+script = ExtResource( 86 )
+anim_length = 20
+title = "Teleport"
+data_ui_scene = ExtResource( 87 )
+air_type = 2
+interrupt_from_string = "Grounded
+GroundedMovement
+GroundedSpecial
+Aerial
+AerialMovement
+AerialSpecial
+Teleport"
+interrupt_into_string = "Grounded
+Aerial"
