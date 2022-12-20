@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=2]
+[gd_scene load_steps=99 format=2]
 
 [ext_resource path="res://characters/BaseChar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/BaseChar.gdshader" type="Shader" id=2]
@@ -87,6 +87,13 @@
 [ext_resource path="res://mechanics/Hitbox.gd" type="Script" id=85]
 [ext_resource path="res://characters/skuld/states/teleport.gd" type="Script" id=86]
 [ext_resource path="res://characters/skuld/ActionUIData/TeleportActionUIData.tscn" type="PackedScene" id=87]
+[ext_resource path="res://characters/skuld/states/cockhand.gd" type="Script" id=88]
+[ext_resource path="res://characters/skuld/sprites/skuldbash/skuldbash0.png" type="Texture" id=89]
+[ext_resource path="res://characters/skuld/sprites/skuldbash/skuldbash1.png" type="Texture" id=90]
+[ext_resource path="res://characters/skuld/sprites/skuldbash/skuldbash2.png" type="Texture" id=91]
+[ext_resource path="res://characters/skuld/sprites/skuldbash/skuldbash3.png" type="Texture" id=92]
+[ext_resource path="res://characters/skuld/sprites/skuldbash/skuldbash4.png" type="Texture" id=93]
+[ext_resource path="res://characters/skuld/sprites/skuldbash/skuldbash5.png" type="Texture" id=94]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -96,6 +103,9 @@ shader_param/max_color_distance = 0.01
 shader_param/super_dim = false
 shader_param/use_outline = false
 shader_param/outline_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StreamTexture" id=4]
+load_path = "res://.import/0.png-4271b8595c0e65e755ced9da40a43407.stex"
 
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
@@ -126,6 +136,11 @@ animations = [ {
 "frames": [ ExtResource( 21 ) ],
 "loop": true,
 "name": "Burst",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ) ],
+"loop": true,
+"name": "ClockSex",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 13 ) ],
@@ -311,12 +326,13 @@ animations = [ {
 
 [node name="Skuld" instance=ExtResource( 1 )]
 material = SubResource( 1 )
+character_portrait = SubResource( 4 )
 
 [node name="Sprite" parent="Flip" index="0"]
 material = SubResource( 2 )
 frames = SubResource( 3 )
-animation = "Wait"
-frame = 0
+animation = "ClockSex"
+frame = 4
 __meta__ = {
 "_edit_group_": true
 }
@@ -328,7 +344,10 @@ ticks_per_frame = 8
 
 [node name="ClockSex" type="Node2D" parent="StateMachine" index="41"]
 script = ExtResource( 84 )
-anim_length = 20
+sprite_animation = "ClockSex"
+anim_length = 18
+sprite_anim_length = 6
+ticks_per_frame = 3
 title = "Bash"
 type = 1
 interrupt_from_string = "Grounded
@@ -341,13 +360,15 @@ GroundedSuper"
 [node name="Hitbox" type="Node2D" parent="StateMachine/ClockSex" index="0"]
 z_index = 1000
 script = ExtResource( 85 )
-x = 36
-y = -17
-width = 24
+x = 27
+y = -21
+width = 31
 height = 14
 damage = 70
 hit_height = 0
-start_tick = 4
+knockback = "50"
+grounded_hit_state = "HurtAerial"
+start_tick = 15
 
 [node name="Teleport" type="Node2D" parent="StateMachine" index="42"]
 script = ExtResource( 86 )
@@ -364,3 +385,16 @@ AerialSpecial
 Teleport"
 interrupt_into_string = "Grounded
 Aerial"
+
+[node name="CockHand" type="Node2D" parent="StateMachine" index="43"]
+script = ExtResource( 88 )
+sprite_animation = "Wait"
+anim_length = 20
+title = "Seconds"
+type = 1
+interrupt_from_string = "Grounded
+GroundedAttack"
+interrupt_into_string = "Grounded"
+hit_cancel_into_string = "GroundedAttack
+GroundedSpecial
+GroundedSuper"
