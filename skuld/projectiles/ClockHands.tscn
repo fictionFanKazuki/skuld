@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://projectile/DirProjectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/skuld/projectiles/sprites/ClockHands.png" type="Texture" id=2]
+[ext_resource path="res://characters/BaseChar.gdshader" type="Shader" id=4]
+[ext_resource path="res://mechanics/Hitbox.gd" type="Script" id=5]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/max_color_distance = 0.01
+shader_param/super_dim = false
+shader_param/use_outline = false
+shader_param/outline_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="ClockHands" instance=ExtResource( 1 )]
+material = SubResource( 1 )
+max_ground_speed = "150"
+max_air_speed = "1000"
+max_fall_speed = "1500"
+
+[node name="Sprite" parent="Flip" index="0"]
+frames = SubResource( 2 )
+
+[node name="Default" parent="StateMachine" index="0"]
+homing = true
+start_homing = true
+
+[node name="Hitbox" type="Node2D" parent="StateMachine/Default" index="0"]
+z_index = 1000
+script = ExtResource( 5 )
+x = -3
+height = 5
+damage = 150
+minimum_damage = 100
+start_tick = 1
+active_ticks = 6
+always_on = true

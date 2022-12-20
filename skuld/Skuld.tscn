@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=2]
+[gd_scene load_steps=100 format=2]
 
 [ext_resource path="res://characters/BaseChar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/BaseChar.gdshader" type="Shader" id=2]
@@ -87,6 +87,7 @@
 [ext_resource path="res://mechanics/Hitbox.gd" type="Script" id=85]
 [ext_resource path="res://characters/skuld/states/teleport.gd" type="Script" id=86]
 [ext_resource path="res://characters/skuld/ActionUIData/TeleportActionUIData.tscn" type="PackedScene" id=87]
+[ext_resource path="res://characters/skuld/ClockHands.gd" type="Script" id=88]
 [ext_resource path="res://characters/skuld/sprites/clock_sex/0.png" type="Texture" id=90]
 [ext_resource path="res://characters/skuld/sprites/clock_sex/1.png" type="Texture" id=91]
 [ext_resource path="res://characters/skuld/sprites/clock_sex/2.png" type="Texture" id=92]
@@ -397,3 +398,25 @@ AerialSpecial
 Teleport"
 interrupt_into_string = "Grounded
 Aerial"
+
+[node name="ClockHands" type="Node2D" parent="StateMachine" index="43"]
+script = ExtResource( 88 )
+apply_forces = true
+apply_fric = true
+apply_grav = true
+sprite_animation = "Wait"
+anim_length = 10
+title = "Seconds"
+type = 2
+interrupt_from_string = "Aerial
+Grounded
+AerialSpecial
+GroundedSpecial"
+interrupt_into_string = "Aerial
+Grounded
+GroundedSpecial
+AerialSpecial"
+hit_cancel_into_string = "Grounded
+Aerial
+AerialSpecial
+GroundedSpecial"
