@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=2]
+[gd_scene load_steps=99 format=2]
 
 [ext_resource path="res://characters/BaseChar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/BaseChar.gdshader" type="Shader" id=2]
@@ -87,7 +87,6 @@
 [ext_resource path="res://mechanics/Hitbox.gd" type="Script" id=85]
 [ext_resource path="res://characters/skuld/states/teleport.gd" type="Script" id=86]
 [ext_resource path="res://characters/skuld/ActionUIData/TeleportActionUIData.tscn" type="PackedScene" id=87]
-[ext_resource path="res://characters/skuld/states/cockhand.gd" type="Script" id=88]
 [ext_resource path="res://characters/skuld/sprites/skuldbash/skuldbash0.png" type="Texture" id=89]
 [ext_resource path="res://characters/skuld/sprites/skuldbash/skuldbash1.png" type="Texture" id=90]
 [ext_resource path="res://characters/skuld/sprites/skuldbash/skuldbash2.png" type="Texture" id=91]
@@ -105,9 +104,6 @@ shader_param/max_color_distance = 0.01
 shader_param/super_dim = false
 shader_param/use_outline = false
 shader_param/outline_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="StreamTexture" id=4]
-load_path = "res://.import/0.png-4271b8595c0e65e755ced9da40a43407.stex"
 
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
@@ -328,7 +324,12 @@ animations = [ {
 
 [node name="Skuld" instance=ExtResource( 1 )]
 material = SubResource( 1 )
-character_portrait = SubResource( 4 )
+gravity = "0.8"
+max_air_speed = "10"
+max_fall_speed = "15"
+character_portrait = null
+player_info_scene = null
+player_extra_params_scene = null
 
 [node name="Sprite" parent="Flip" index="0"]
 material = SubResource( 2 )
@@ -399,16 +400,3 @@ AerialSpecial
 Teleport"
 interrupt_into_string = "Grounded
 Aerial"
-
-[node name="CockHand" type="Node2D" parent="StateMachine" index="43"]
-script = ExtResource( 88 )
-sprite_animation = "Wait"
-anim_length = 20
-title = "Seconds"
-type = 1
-interrupt_from_string = "Grounded
-GroundedAttack"
-interrupt_into_string = "Grounded"
-hit_cancel_into_string = "GroundedAttack
-GroundedSpecial
-GroundedSuper"
