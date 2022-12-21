@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://projectile/DirProjectile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/skuld/projectiles/sprites/ClockHands.png" type="Texture" id=2]
+[ext_resource path="res://characters/skuld/projectiles/ClockHands.gd" type="Script" id=3]
 [ext_resource path="res://characters/BaseChar.gdshader" type="Shader" id=4]
 [ext_resource path="res://mechanics/Hitbox.gd" type="Script" id=5]
 
@@ -24,21 +25,17 @@ animations = [ {
 
 [node name="ClockHands" instance=ExtResource( 1 )]
 material = SubResource( 1 )
-max_ground_speed = "150"
-max_air_speed = "1000"
-max_fall_speed = "1500"
+script = ExtResource( 3 )
+extra_state_variables = ""
 
 [node name="Sprite" parent="Flip" index="0"]
 frames = SubResource( 2 )
 
-[node name="Default" parent="StateMachine" index="0"]
-homing = true
-start_homing = true
-
 [node name="Hitbox" type="Node2D" parent="StateMachine/Default" index="0"]
 z_index = 1000
 script = ExtResource( 5 )
-x = -3
+x = 10
+width = 6
 height = 5
 damage = 150
 minimum_damage = 100
