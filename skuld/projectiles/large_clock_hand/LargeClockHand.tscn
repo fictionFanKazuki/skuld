@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://characters/BaseChar.gdshader" type="Shader" id=1]
+[ext_resource path="res://projectile/DirProjectile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://characters/skuld/projectiles/large_clock_hand/sprites/TEMPORARY_large_clock_hand.png" type="Texture" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 1 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/max_color_distance = 0.01
+shader_param/super_dim = false
+shader_param/use_outline = false
+shader_param/outline_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="BaseProjectile" instance=ExtResource( 2 )]
+material = SubResource( 1 )
+
+[node name="Sprite" parent="Flip" index="0"]
+frames = SubResource( 2 )
