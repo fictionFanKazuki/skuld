@@ -9,3 +9,4 @@ func _frame_13():
 		host.last_blinked_from["x"],
 		host.last_blinked_from["y"]
 	)
+	host.can_blink = true

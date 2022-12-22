@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://characters/BaseChar.gdshader" type="Shader" id=1]
 [ext_resource path="res://mechanics/Hitbox.gd" type="Script" id=2]
 [ext_resource path="res://characters/skuld/projectiles/sprites/clock_hand.png" type="Texture" id=3]
 [ext_resource path="res://characters/skuld/projectiles/clock_hand.gd" type="Script" id=4]
 [ext_resource path="res://projectile/DirProjectile.tscn" type="PackedScene" id=5]
+[ext_resource path="res://projectile/DirProjectileDefault.gd" type="Script" id=6]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -30,6 +31,13 @@ extra_state_variables = ""
 
 [node name="Sprite" parent="Flip" index="0"]
 frames = SubResource( 2 )
+offset = Vector2( 15, 26 )
+
+[node name="Default" parent="StateMachine" index="0"]
+homing = true
+homing_accel = "0"
+max_homing_speed = "0"
+start_homing = true
 
 [node name="Hitbox" type="Node2D" parent="StateMachine/Default" index="0"]
 z_index = 1000
@@ -42,3 +50,10 @@ minimum_damage = 100
 start_tick = 1
 active_ticks = 6
 always_on = true
+
+[node name="Locked" type="Node2D" parent="StateMachine" index="1"]
+script = ExtResource( 6 )
+fallback_state = "Default"
+sprite_animation = "Default"
+endless = true
+move_speed = "0"

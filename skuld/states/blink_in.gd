@@ -15,6 +15,7 @@ func _frame_7():
 		(data.y * RANGE_SCALING_FACTOR) as int
 	)
 	
+	host.can_blink = false
 	# get reference to change_state function and save position
 	var change_state_reference = funcref(host, "change_state")
 	host.last_blinked_from = host.get_hurtbox_center()
@@ -25,3 +26,6 @@ func _frame_7():
 		["BlinkOut"],
 		BLINK_DURATION
 	)
+
+func is_usable():
+	return host.can_blink

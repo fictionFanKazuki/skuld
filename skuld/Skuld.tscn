@@ -332,7 +332,8 @@ animations = [ {
 material = SubResource( 1 )
 script = ExtResource( 97 )
 extra_state_variables = "BLINK_DURATION
-last_blinked_from"
+last_blinked_from
+can_blink"
 character_portrait = SubResource( 4 )
 
 [node name="Sprite" parent="Flip" index="0"]

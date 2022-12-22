@@ -1,10 +1,11 @@
 extends Fighter
 
 var last_blinked_from: Dictionary # position Blink was last initiated from
-var hand_projectile: String
+var hand_projectile
 
 # array of active callback promises [[f, a, start_tick, duration],]
 var promises: Array
+var can_blink = true
 
 func spawn_clock_hand(proj_x, proj_y, dir):
 	# probably the most important bit, gives us a way of accessing the projectile later
@@ -14,7 +15,7 @@ func spawn_clock_hand(proj_x, proj_y, dir):
 		proj_x,
 		proj_y,
 		false,
-		{"dir": dir}
+		{"dir": dir, "rotation_degrees": 180}
 	)
 	hand_projectile = obj.obj_name
 	
