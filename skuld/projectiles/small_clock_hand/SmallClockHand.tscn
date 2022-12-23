@@ -35,9 +35,6 @@ offset = Vector2( 15, 26 )
 
 [node name="Default" parent="StateMachine" index="0"]
 homing = true
-homing_accel = "0"
-max_homing_speed = "0"
-start_homing = true
 
 [node name="Hitbox" type="Node2D" parent="StateMachine/Default" index="0"]
 z_index = 1000

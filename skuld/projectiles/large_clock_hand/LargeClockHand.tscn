@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://characters/BaseChar.gdshader" type="Shader" id=1]
 [ext_resource path="res://projectile/DirProjectile.tscn" type="PackedScene" id=2]
-[ext_resource path="res://characters/skuld/projectiles/large_clock_hand/sprites/TEMPORARY_large_clock_hand.png" type="Texture" id=3]
+[ext_resource path="res://characters/skuld/projectiles/large_clock_hand/sprites/large_clock_hand.png" type="Texture" id=3]
+[ext_resource path="res://characters/skuld/projectiles/large_clock_hand/large_clock_hand.gd" type="Script" id=4]
+[ext_resource path="res://mechanics/Hitbox.gd" type="Script" id=5]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -23,6 +25,32 @@ animations = [ {
 
 [node name="BaseProjectile" instance=ExtResource( 2 )]
 material = SubResource( 1 )
+script = ExtResource( 4 )
+extra_state_variables = ""
 
 [node name="Sprite" parent="Flip" index="0"]
 frames = SubResource( 2 )
+offset = Vector2( 22, -6 )
+
+[node name="CollisionBox" parent="." index="2"]
+x = 36
+width = 45
+
+[node name="Hurtbox" parent="." index="3"]
+x = 36
+width = 45
+
+[node name="Default" parent="StateMachine" index="0"]
+apply_forces = true
+apply_fric = true
+apply_grav = true
+
+[node name="Hitbox" type="Node2D" parent="StateMachine/Default" index="0"]
+z_index = 1000
+script = ExtResource( 5 )
+x = 25
+width = 32
+height = 7
+damage = 10
+start_tick = 1
+always_on = true
